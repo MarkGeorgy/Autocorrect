@@ -1,0 +1,6 @@
+public class Test {
+
+    int x = 0;
+    int y=0;
+    int z = x+y;
+}
