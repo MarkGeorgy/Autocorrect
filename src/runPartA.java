@@ -25,7 +25,7 @@ public class runPartA {
                 text = text + " " + line.toLowerCase();
             }
         }
-        System.out.println(dictionaryTree.get("sdfsdfsdfsdf"));
+        
         String[] cleanText = text.split("[;.,\"() _-]");
         for (int i = 0; i < cleanText.length; i++) {
             if (cleanText[i].equals("")) {
