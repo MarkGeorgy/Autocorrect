@@ -1,12 +1,14 @@
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class runPartB {
 
     public static void main(String[] args) throws IOException {
         RedBlackBST dictionaryTree = new RedBlackBST();
-        MergeSort mergeSort = new MergeSort();
         File file1 = new File(("dictionary.txt"));
         File filesRemovedSpaces;
         String text = "";
@@ -19,7 +21,7 @@ public class runPartB {
         for (int i = 0; i < words.length; i++) {
             dictionaryTree.put(words[i], 0);
         }
-        for (int i = 0; i <20; i++) {
+        for (int i = 0; i <1; i++) {
             String temp = i + ".txt";
             filesRemovedSpaces = new File("Part B - Removed Spaces/" + temp);
             br = new BufferedReader(new FileReader(filesRemovedSpaces));
@@ -33,7 +35,7 @@ public class runPartB {
             if (removedSpacesText[i].equals("")) {
                 continue;
             }
-            ArrayList<String> temp = wb.wordBreak(removedSpacesText[i], dictionaryTree);
+            List<String> temp = wb.wordBreak(removedSpacesText[i], dictionaryTree);
             if (!(temp.isEmpty())) {
                 for (int j = 0; j < temp.size(); j++) {
                     if(!(removedSpacesText[i].equals(temp.get(j))))
@@ -56,9 +58,8 @@ public class runPartB {
             frequencyPerWords[i] = new FrequencyPerWord(temp[0], Integer.valueOf(temp[1]));
         }
 
-        mergeSort.sort(frequencyPerWords);
-        mergeSort.sort(correctedWords);
-        //Arrays.sort(frequencyPerWords);
+        Arrays.sort(frequencyPerWords);
+        Arrays.sort(correctedWords);
 
         PrintWriter outFrequencies = new PrintWriter("PartB-Frequencies.csv");
         PrintWriter outRepeated = new PrintWriter("PartB-Repeated.txt");

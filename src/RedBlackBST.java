@@ -116,7 +116,7 @@ public class RedBlackBST<Key extends Comparable<Key>>
         output = output + node.key + "," + node.val+ " ";
         printBST(node.left);
         printBST(node.right);
-        return output.substring(0,output.length()-1);
+        return output.trim();
     }
 
 

@@ -6,7 +6,6 @@ public class runPartA {
 
     public static void main(String[] args) throws IOException {
         RedBlackBST dictionaryTree = new RedBlackBST();
-        MergeSort mergeSort = new MergeSort();
         File file1 = new File(("dictionary.txt"));
         File filesClean;
         String text = "";
@@ -17,7 +16,7 @@ public class runPartA {
         for (int i = 0; i < words.length; i++) {
             dictionaryTree.put(words[i], 0);
         }
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 20; i++) {
             String temp = i + ".txt";
             filesClean = new File("Part A - Clean/" + temp);
             br = new BufferedReader(new FileReader(filesClean));
@@ -25,7 +24,7 @@ public class runPartA {
                 text = text + " " + line.toLowerCase();
             }
         }
-        
+
         String[] cleanText = text.split("[;.,\"() _-]");
         for (int i = 0; i < cleanText.length; i++) {
             if (cleanText[i].equals("")) {
@@ -40,8 +39,9 @@ public class runPartA {
             String[] temp = output[i].split(",");
             frequencyPerWords[i] = new FrequencyPerWord(temp[0], Integer.valueOf(temp[1]));
         }
-        mergeSort.sort(frequencyPerWords);
-        //Arrays.sort(frequencyPerWords);
+
+
+        Arrays.sort(frequencyPerWords);
 
         PrintWriter outFrequencies = new PrintWriter("PartA-Frequencies.csv");
         PrintWriter outRepeated = new PrintWriter("PartA-Repeated.txt");
