@@ -5,7 +5,7 @@ public class WordBreak {
 
     public ArrayList<String> wordBreak(String s, RedBlackBST redBlackBST) {
         ArrayList<String> [] pos = new ArrayList[s.length()+1];
-        pos[0]=new ArrayList<String>();
+        pos[0]= new ArrayList<>();
 
         for(int i=0; i<s.length(); i++){
             if(pos[i]!=null){
@@ -13,7 +13,7 @@ public class WordBreak {
                     String sub = s.substring(i,j);
                     if((redBlackBST.get(sub))!=-1){
                         if(pos[j]==null){
-                            ArrayList<String> list = new ArrayList<String>();
+                            ArrayList<String> list = new ArrayList<>();
                             list.add(sub);
                             pos[j]=list;
                         }else{
@@ -26,9 +26,9 @@ public class WordBreak {
         }
 
         if(pos[s.length()]==null){
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }else{
-            ArrayList<String> result = new ArrayList<String>();
+            ArrayList<String> result = new ArrayList<>();
             dfs(pos, result, "", s.length());
             return result;
         }
