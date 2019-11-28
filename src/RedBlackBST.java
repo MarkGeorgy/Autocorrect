@@ -110,6 +110,22 @@ public class RedBlackBST<Key extends Comparable<Key>>
         }
     }
 
+    public boolean contains (Key key){
+        return contains(root,key);
+    }
+
+    private boolean contains(Node x, Key key)
+    { // Return value associated with key in the subtree rooted at x;
+        // return null if key not present in subtree rooted at x.
+        if (x == null) return false;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) return contains(x.left, key);
+        else if (cmp > 0) return contains(x.right, key);
+        else {
+            return true;
+        }
+    }
+
     String printBST(Node node)
     {
         if(node == null) return null;
