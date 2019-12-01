@@ -2,36 +2,36 @@ import java.io.*;
 import java.util.Arrays;
 
 
-public class runPartA {
+public class RunPartA {
 
 
     public static void main(String[] args) throws IOException {
-        RedBlackBST dictionaryTree = new RedBlackBST();
-        File file1 = new File(("dictionary.txt"));
-        File filesClean;
+        RedBlackBST<String> dictionaryTree = new RedBlackBST<String>();
+        File dictionaryFile = new File(("dictionary.txt"));
+        File cleanFiles;
         String text = "";
 
-        BufferedReader br = new BufferedReader(new FileReader(file1));
+        BufferedReader br = new BufferedReader(new FileReader(dictionaryFile));
         String line = br.readLine().toLowerCase();
         String[] words = line.split(" ");
-        for (int i = 0; i < words.length; i++) {
-            dictionaryTree.put(words[i], 0);
+        for (String word : words) {
+            dictionaryTree.put(word, 0);
         }
         for (int i = 0; i < 20; i++) {
             String temp = i + ".txt";
-            filesClean = new File("Part A - Clean/" + temp);
-            br = new BufferedReader(new FileReader(filesClean));
+            cleanFiles = new File("Part A - Clean/" + temp);
+            br = new BufferedReader(new FileReader(cleanFiles));
             while ((line = br.readLine()) != null) {
                 text = text + " " + line.toLowerCase();
             }
         }
 
         String[] cleanText = text.split("[;.,\"() _-]");
-        for (int i = 0; i < cleanText.length; i++) {
-            if (cleanText[i].equals("")) {
+        for (String s : cleanText) {
+            if (s.equals("")) {
                 continue;
             }
-            dictionaryTree.get(cleanText[i]);
+            dictionaryTree.get(s);
         }
 
         //Adding to frequencyPerWords data type
@@ -39,21 +39,21 @@ public class runPartA {
         FrequencyPerWord[] frequencyPerWords = new FrequencyPerWord[output.length];
         for (int i = 0; i < output.length; i++) {
             String[] temp = output[i].split(",");
-            frequencyPerWords[i] = new FrequencyPerWord(temp[0], Integer.valueOf(temp[1]));
+            frequencyPerWords[i] = new FrequencyPerWord(temp[0], Integer.parseInt(temp[1]));
         }
 
         //Adding to repeated data type
         String repeated = "";
-        for (int i = 0; i < frequencyPerWords.length; i++) {
-            if (frequencyPerWords[i].getFrequency() != 0) {
-                for (int j = 0; j < frequencyPerWords[i].getFrequency(); j++)
-                    repeated = repeated + frequencyPerWords[i].getWord() + "///";
+        for (FrequencyPerWord frequencyPerWord : frequencyPerWords) {
+            if (frequencyPerWord.getFrequency() != 0) {
+                for (int j = 0; j < frequencyPerWord.getFrequency(); j++)
+                    repeated = repeated + frequencyPerWord.getWord() + "///";
             }
         }
         String[] repeatedWords = repeated.split("///");
-        Repeat[] repeat = new Repeat[repeatedWords.length];
+        RepeatedWords[] repeat = new RepeatedWords[repeatedWords.length];
         for (int i = 0; i < repeat.length; i++) {
-            repeat[i] = new Repeat(repeatedWords[i]);
+            repeat[i] = new RepeatedWords(repeatedWords[i]);
         }
 
         Arrays.sort(repeat);
@@ -61,15 +61,15 @@ public class runPartA {
 
         PrintWriter outFrequencies = new PrintWriter("PartA-Frequencies.csv");
         PrintWriter outRepeated = new PrintWriter("PartA-Repeated.txt");
-        for (int i = 0; i < frequencyPerWords.length; i++) {
-            if (frequencyPerWords[i].getFrequency() != 0) {
-                String printFrequencyPerWord = frequencyPerWords[i].getWord() + "," + frequencyPerWords[i].getFrequency();
+        for (FrequencyPerWord frequencyPerWord : frequencyPerWords) {
+            if (frequencyPerWord.getFrequency() != 0) {
+                String printFrequencyPerWord = frequencyPerWord.getWord() + "," + frequencyPerWord.getFrequency();
                 outFrequencies.println(printFrequencyPerWord);
             }
         }
 
-        for (int i = 0; i < repeat.length; i++) {
-            String printRepeated = repeat[i].getRepeatedWords() + " ";
+        for (RepeatedWords value : repeat) {
+            String printRepeated = value.getRepeatedWords() + " ";
             outRepeated.print(printRepeated);
         }
         outFrequencies.close();

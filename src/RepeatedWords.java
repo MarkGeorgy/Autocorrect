@@ -1,7 +1,8 @@
-public class Repeat implements Comparable<Repeat>{
+
+public class RepeatedWords implements Comparable<RepeatedWords>{
     String repeatedWords;
 
-    public Repeat(String repeatedWords) {
+    public RepeatedWords(String repeatedWords) {
         this.repeatedWords = repeatedWords;
     }
 
@@ -10,7 +11,7 @@ public class Repeat implements Comparable<Repeat>{
     }
 
     @Override
-    public int compareTo(Repeat that) {
+    public int compareTo(RepeatedWords that) {
         return this.getRepeatedWords().compareTo(that.getRepeatedWords());
     }
 }
