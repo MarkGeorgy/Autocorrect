@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class RunPartA {
 
     public static void main(String[] args) throws IOException {
+        long start = System.currentTimeMillis();
         RedBlackBST<String> dictionaryTree = new RedBlackBST<String>();
         //File dictionaryFile = new File(("dictionary.txt"));
         File dictionaryFile = new File(("files for demo/dictionary.txt"));
@@ -22,8 +23,10 @@ public class RunPartA {
         br = new BufferedReader(new FileReader(cleanFiles));
         while ((line = br.readLine()) != null) {
             text = text + " " + line.toLowerCase();
+            System.out.println(line.toLowerCase());
         }
 
+        System.out.println("Reading files done");
 //        for (int i = 0; i < 20; i++) {
 //            String temp = i + ".txt";
 //            cleanFiles = new File("Part A - Clean/" + temp);
@@ -34,14 +37,14 @@ public class RunPartA {
 //        }
 
         //String[] cleanText = text.split("[;.,\"() _-]");
-        String[] cleanText = text.split("[;.,\"() _']");
+        String[] cleanText = text.split("[;.,\"() _':]");
         for (String s : cleanText) {
             if (s.equals("")) {
                 continue;
             }
             dictionaryTree.get(s);
         }
-
+        System.out.println("Frequency done");
         //Adding to frequencyPerWords data type
         String[] output = dictionaryTree.printBST(dictionaryTree.getRoot()).split(" ");
         FrequencyPerWord[] frequencyPerWords = new FrequencyPerWord[output.length];
@@ -67,6 +70,8 @@ public class RunPartA {
         Arrays.sort(repeat);
         Arrays.sort(frequencyPerWords);
 
+        System.out.println("Sorting Done");
+
         PrintWriter outFrequencies = new PrintWriter("PartA-Frequencies.csv");
         PrintWriter outRepeated = new PrintWriter("PartA-Repeated.txt");
         for (FrequencyPerWord frequencyPerWord : frequencyPerWords) {
@@ -80,9 +85,11 @@ public class RunPartA {
             String printRepeated = value.getRepeatedWords() + " ";
             outRepeated.print(printRepeated);
         }
+
         outFrequencies.close();
         outRepeated.close();
-
+        long elapsed = System.currentTimeMillis() - start;
+        System.out.println(elapsed);
     }
 }
 

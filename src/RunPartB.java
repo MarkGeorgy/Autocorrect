@@ -38,8 +38,8 @@ public class RunPartB {
 //                }
 //            }
 
-        String[] spaceRemovedText = text.split("[:?;.,\"() _-]");
-
+      //  String[] spaceRemovedText = text.split("[:?;.,\"() _-]");
+        String[] spaceRemovedText = text.split("[;.,\"() _':]");
         //Checking the words and correcting them
 
         for (String s : spaceRemovedText) {
