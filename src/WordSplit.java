@@ -9,7 +9,6 @@ public class WordSplit {
     }
 
     private List<String> wordSplitUtility(String s, RedBlackBST<String> wordDict) {
-
         List<String> result = new ArrayList<>();
         if (wordDict.contains(s)) {
             result.add(s);
@@ -29,7 +28,6 @@ public class WordSplit {
                             result.add(firstPart + " " + splitWords);
                         removeExtra(result);
                     }
-
                 }
 
                 else {

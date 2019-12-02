@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 public class RunPartA {
 
-
     public static void main(String[] args) throws IOException {
         RedBlackBST<String> dictionaryTree = new RedBlackBST<String>();
-        File dictionaryFile = new File(("dictionary.txt"));
+        //File dictionaryFile = new File(("dictionary.txt"));
+        File dictionaryFile = new File(("files for demo/dictionary.txt"));
         File cleanFiles;
         String text = "";
 
@@ -17,16 +17,24 @@ public class RunPartA {
         for (String word : words) {
             dictionaryTree.put(word, 0);
         }
-        for (int i = 0; i < 20; i++) {
-            String temp = i + ".txt";
-            cleanFiles = new File("Part A - Clean/" + temp);
-            br = new BufferedReader(new FileReader(cleanFiles));
-            while ((line = br.readLine()) != null) {
-                text = text + " " + line.toLowerCase();
-            }
+
+        cleanFiles = new File("files for demo/1000000 Words/clean_file.txt");
+        br = new BufferedReader(new FileReader(cleanFiles));
+        while ((line = br.readLine()) != null) {
+            text = text + " " + line.toLowerCase();
         }
 
-        String[] cleanText = text.split("[;.,\"() _-]");
+//        for (int i = 0; i < 20; i++) {
+//            String temp = i + ".txt";
+//            cleanFiles = new File("Part A - Clean/" + temp);
+//            br = new BufferedReader(new FileReader(cleanFiles));
+//            while ((line = br.readLine()) != null) {
+//                text = text + " " + line.toLowerCase();
+//            }
+//        }
+
+        //String[] cleanText = text.split("[;.,\"() _-]");
+        String[] cleanText = text.split("[;.,\"() _']");
         for (String s : cleanText) {
             if (s.equals("")) {
                 continue;
