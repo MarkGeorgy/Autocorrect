@@ -7,9 +7,11 @@ import java.util.List;
 public class RunPartB {
 
     public static void main(String[] args) throws IOException {
+
+        //Initializing
         RedBlackBST<String> dictionaryTree = new RedBlackBST<>();
-        // File dictionaryFile = new File(("dictionary.txt"));
-        File dictionaryFile = new File(("files for demo/dictionary.txt"));
+        File dictionaryFile = new File(("dictionary.txt")); // Use this to read the given dictionary
+        //File dictionaryFile = new File(("files for demo/dictionary.txt")); //Use this to read Demo dictionary
         File spacedRemovedFiles;
         String text = "";
         WordSplit removeSpace = new WordSplit();
@@ -23,25 +25,28 @@ public class RunPartB {
             dictionaryTree.put(word, 0);
         }
 
-        spacedRemovedFiles = new File("files for demo/1000000 Words/spaces_removed_file.txt");
-        br = new BufferedReader(new FileReader(spacedRemovedFiles));
-        while ((line = br.readLine()) != null) {
-            text = text + " " + line.toLowerCase();
-        }
+        //Use this to read demo files
+//        spacedRemovedFiles = new File("files for demo/500 Words/spaces_removed_file.txt");
+//        br = new BufferedReader(new FileReader(spacedRemovedFiles));
+//        while ((line = br.readLine()) != null) {
+//            text = text + " " + line.toLowerCase();
+//        }
 
-//            for (int i = 0; i < 1; i++) {
-//                String temp = i + ".txt";
-//                spacedRemovedFiles = new File("Part B - Removed Spaces/" + temp);
-//                br = new BufferedReader(new FileReader(spacedRemovedFiles));
-//                while ((line = br.readLine()) != null) {
-//                    text = text + " " + line.toLowerCase();
-//                }
-//            }
 
-      //  String[] spaceRemovedText = text.split("[:?;.,\"() _-]");
-        String[] spaceRemovedText = text.split("[;.,\"() _':]");
+            //Reading spaces removed text files or comment this part to read demo files
+            for (int i = 0; i < 20; i++) {//Loop to choose number of files to run
+                String temp = i + ".txt";
+                spacedRemovedFiles = new File("Part B - Removed Spaces/" + temp);
+                br = new BufferedReader(new FileReader(spacedRemovedFiles));
+                while ((line = br.readLine()) != null) {
+                    text = text + " " + line.toLowerCase();
+                }
+            }
+
+        String[] spaceRemovedText = text.split("[:?;.,\"() _-]");
+        //String[] spaceRemovedText = text.split("[;.,\"() _':]"); //Use this Split to read Demo files
+
         //Checking the words and correcting them
-
         for (String s : spaceRemovedText) {
             if (s.equals("")) {
                 continue;
@@ -90,6 +95,7 @@ public class RunPartB {
             repeat[i] = new RepeatedWords(repeatedWords[i]);
         }
 
+        //Sorting
         Arrays.sort(repeat);
         Arrays.sort(frequencyPerWords);
         Arrays.sort(correctedWords);

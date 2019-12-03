@@ -1,3 +1,5 @@
+
+
 import java.io.*;
 import java.util.Arrays;
 
@@ -5,13 +7,15 @@ import java.util.Arrays;
 public class RunPartA {
 
     public static void main(String[] args) throws IOException {
-        long start = System.currentTimeMillis();
+
+        //Initializing
         RedBlackBST<String> dictionaryTree = new RedBlackBST<String>();
-        //File dictionaryFile = new File(("dictionary.txt"));
-        File dictionaryFile = new File(("files for demo/dictionary.txt"));
+        File dictionaryFile = new File(("dictionary.txt")); //Use this line to read given dictionary
+        //File dictionaryFile = new File("files for demo/dictionary.txt");  //Use this to read Demo dictionary
         File cleanFiles;
         String text = "";
 
+        //Reading dictionary file
         BufferedReader br = new BufferedReader(new FileReader(dictionaryFile));
         String line = br.readLine().toLowerCase();
         String[] words = line.split(" ");
@@ -19,32 +23,33 @@ public class RunPartA {
             dictionaryTree.put(word, 0);
         }
 
-        cleanFiles = new File("files for demo/1000000 Words/clean_file.txt");
-        br = new BufferedReader(new FileReader(cleanFiles));
-        while ((line = br.readLine()) != null) {
-            text = text + " " + line.toLowerCase();
-            System.out.println(line.toLowerCase());
+        //Use this code to read Demo files
+        //cleanFiles = new File("files for demo/500 Words/clean_file.txt");
+        //br = new BufferedReader(new FileReader(cleanFiles));
+        //while ((line = br.readLine()) != null) {
+        //    text = text + " " + line.toLowerCase();
+        //}
+
+        //Reading clean text files or comment this part to read demo files
+        for (int i = 0; i < 20; i++) { //Loop to choose number of files to run
+            String temp = i + ".txt";
+            cleanFiles = new File("Part A - Clean/" + temp);
+            br = new BufferedReader(new FileReader(cleanFiles));
+            while ((line = br.readLine()) != null) {
+                text = text + " " + line.toLowerCase();
+            }
         }
 
-        System.out.println("Reading files done");
-//        for (int i = 0; i < 20; i++) {
-//            String temp = i + ".txt";
-//            cleanFiles = new File("Part A - Clean/" + temp);
-//            br = new BufferedReader(new FileReader(cleanFiles));
-//            while ((line = br.readLine()) != null) {
-//                text = text + " " + line.toLowerCase();
-//            }
-//        }
+        String[] cleanText = text.split("[;.,\"() _-]"); // Use this split to read given files
+        //String[] cleanText = text.split("[;.,\"() _':]"); // Use this split to read demo files
 
-        //String[] cleanText = text.split("[;.,\"() _-]");
-        String[] cleanText = text.split("[;.,\"() _':]");
         for (String s : cleanText) {
             if (s.equals("")) {
                 continue;
             }
             dictionaryTree.get(s);
         }
-        System.out.println("Frequency done");
+
         //Adding to frequencyPerWords data type
         String[] output = dictionaryTree.printBST(dictionaryTree.getRoot()).split(" ");
         FrequencyPerWord[] frequencyPerWords = new FrequencyPerWord[output.length];
@@ -67,11 +72,12 @@ public class RunPartA {
             repeat[i] = new RepeatedWords(repeatedWords[i]);
         }
 
+        //Sorting
         Arrays.sort(repeat);
         Arrays.sort(frequencyPerWords);
 
-        System.out.println("Sorting Done");
 
+        //Printing to files
         PrintWriter outFrequencies = new PrintWriter("PartA-Frequencies.csv");
         PrintWriter outRepeated = new PrintWriter("PartA-Repeated.txt");
         for (FrequencyPerWord frequencyPerWord : frequencyPerWords) {
@@ -88,8 +94,7 @@ public class RunPartA {
 
         outFrequencies.close();
         outRepeated.close();
-        long elapsed = System.currentTimeMillis() - start;
-        System.out.println(elapsed);
+
     }
 }
 
